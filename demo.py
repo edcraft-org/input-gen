@@ -14,6 +14,18 @@ print(
     ),
 )
 
+# --- Faker strings ---
+print("\n=== Faker Strings ===")
+print("name:           ", generate({"type": "string", "faker": "name"}))
+print("first_name:     ", generate({"type": "string", "faker": "first_name"}))
+print("last_name:      ", generate({"type": "string", "faker": "last_name"}))
+print("city:           ", generate({"type": "string", "faker": "city"}))
+print("country:        ", generate({"type": "string", "faker": "country"}))
+print("state:          ", generate({"type": "string", "faker": "state"}))
+print("postcode:       ", generate({"type": "string", "faker": "postcode"}))
+print("street_address: ", generate({"type": "string", "faker": "street_address"}))
+print("address:\n", generate({"type": "string", "faker": "address"}))
+
 # --- Containers ---
 print("\n=== Containers ===")
 print(
@@ -62,12 +74,7 @@ print(
         {
             "type": "object",
             "properties": {
-                "name": {
-                    "type": "string",
-                    "pattern": "^[a-z]+$",
-                    "minLength": 5,
-                    "maxLength": 10,
-                },
+                "name": {"type": "string", "faker": "name"},
                 "age": {"type": "integer", "minimum": 0, "maximum": 120},
                 "active": {"type": "boolean"},
             },

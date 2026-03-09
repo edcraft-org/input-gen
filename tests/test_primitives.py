@@ -48,6 +48,10 @@ class TestString:
         for v in sample({"type": "string", "pattern": pattern}, n=10):
             assert re.fullmatch(pattern, v), f"{v!r} does not match {pattern}"
 
+    def test_faker(self) -> None:
+        for v in sample({"type": "string", "faker": "name"}):
+            assert isinstance(v, str) and len(v) > 0
+
 
 class TestBoolean:
     def test_type(self) -> None:

@@ -45,6 +45,30 @@ These follow the [JSON Schema](https://json-schema.org/) spec and support the fu
 | `"string"` | `{"type": "string", "minLength": 3, "pattern": "^[a-z]+$"}` |
 | `"boolean"` | `{"type": "boolean"}` |
 
+### Realistic strings (Faker)
+
+Add a `"faker"` key to any `"string"` schema to generate realistic, human-readable strings instead of random characters. Powered by the [Faker](https://faker.readthedocs.io/) library (`en_US` locale).
+
+```python
+generate({"type": "string", "faker": "name"})           # "John Smith"
+generate({"type": "string", "faker": "city"})           # "San Francisco"
+generate({"type": "string", "faker": "email"})          # unsupported → ValueError
+```
+
+| `"faker"` value | Example output |
+|---|---|
+| `"name"` | `"Jane Doe"` |
+| `"first_name"` | `"Jane"` |
+| `"last_name"` | `"Doe"` |
+| `"address"` | `"123 Main St\nSpringfield, IL 62701"` |
+| `"city"` | `"Springfield"` |
+| `"country"` | `"United States"` |
+| `"street_address"` | `"123 Main St"` |
+| `"postcode"` | `"62701"` |
+| `"state"` | `"Illinois"` |
+
+An unknown `"faker"` value raises a `ValueError` listing all supported providers.
+
 ### Container types
 
 Container types are handled natively by the package and support **arbitrary nesting** — including custom types like `graph` inside arrays.
