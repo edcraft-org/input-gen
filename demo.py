@@ -35,6 +35,43 @@ print(
     ),
 )
 print(
+    "sorted array:",
+    generate(
+        {
+            "type": "array",
+            "items": {"type": "integer", "minimum": 0, "maximum": 100},
+            "minItems": 5,
+            "maxItems": 8,
+            "sorted": True,
+        }
+    ),
+)
+print(
+    "unique array:",
+    generate(
+        {
+            "type": "array",
+            "items": {"type": "integer", "minimum": 0, "maximum": 10},
+            "minItems": 5,
+            "maxItems": 8,
+            "unique": True,
+        }
+    ),
+)
+print(
+    "unique and sorted array:",
+    generate(
+        {
+            "type": "array",
+            "items": {"type": "integer", "minimum": 0, "maximum": 10},
+            "minItems": 5,
+            "maxItems": 8,
+            "unique": True,
+            "sorted": True,
+        }
+    ),
+)
+print(
     "set:  ",
     generate(
         {

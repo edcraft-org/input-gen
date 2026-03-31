@@ -9,11 +9,17 @@ def array_strategy(schema: dict) -> st.SearchStrategy[Any]:
     items_schema: dict = schema.get("items", {})
     min_size: int = schema.get("minItems", 0)
     max_size: int | None = schema.get("maxItems")
-    return st.lists(
+    unique: bool = schema.get("unique", False)
+    sorted_: bool = schema.get("sorted", False)
+    result = st.lists(
         dispatch.build_strategy(items_schema),
         min_size=min_size,
         max_size=max_size,
+        unique=unique,
     )
+    if sorted_:
+        result = result.map(sorted)
+    return result
 
 
 def object_strategy(schema: dict) -> st.SearchStrategy[Any]:

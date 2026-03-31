@@ -1,6 +1,5 @@
 """Tests for container type generation (array, object, set, tuple) including nesting."""
 
-
 from tests.conftest import sample
 
 
@@ -30,6 +29,28 @@ class TestArray:
         }
         for v in sample(schema):
             assert 2 <= len(v) <= 5
+
+    def test_sorted(self) -> None:
+        schema = {
+            "type": "array",
+            "items": {"type": "integer", "minimum": 0, "maximum": 100},
+            "minItems": 2,
+            "maxItems": 8,
+            "sorted": True,
+        }
+        for v in sample(schema):
+            assert v == sorted(v)
+
+    def test_unique(self) -> None:
+        schema = {
+            "type": "array",
+            "items": {"type": "integer", "minimum": 0, "maximum": 1000},
+            "minItems": 5,
+            "maxItems": 10,
+            "unique": True,
+        }
+        for v in sample(schema):
+            assert len(v) == len(set(v))
 
     def test_nested_array(self) -> None:
         schema = {
@@ -94,19 +115,29 @@ class TestSet:
 
 class TestTuple:
     def test_type(self) -> None:
-        schema = {"type": "tuple", "prefixItems": [{"type": "integer"}, {"type": "string"}]}
+        schema = {
+            "type": "tuple",
+            "prefixItems": [{"type": "integer"}, {"type": "string"}],
+        }
         for v in sample(schema):
             assert isinstance(v, tuple)
 
     def test_length(self) -> None:
-        schema = {"type": "tuple", "prefixItems": [{"type": "integer"}, {"type": "string"}]}
+        schema = {
+            "type": "tuple",
+            "prefixItems": [{"type": "integer"}, {"type": "string"}],
+        }
         for v in sample(schema):
             assert len(v) == 2
 
     def test_element_types(self) -> None:
         schema = {
             "type": "tuple",
-            "prefixItems": [{"type": "integer"}, {"type": "string"}, {"type": "boolean"}],
+            "prefixItems": [
+                {"type": "integer"},
+                {"type": "string"},
+                {"type": "boolean"},
+            ],
         }
         for v in sample(schema):
             assert isinstance(v[0], int)
